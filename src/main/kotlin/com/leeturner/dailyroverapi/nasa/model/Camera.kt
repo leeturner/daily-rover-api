@@ -1,4 +1,4 @@
-package com.leeturner.dailyroverapi.model
+package com.leeturner.dailyroverapi.nasa.model
 
 data class Camera(
     val id: Int,

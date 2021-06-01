@@ -1,4 +1,4 @@
-package com.leeturner.dailyroverapi.model
+package com.leeturner.dailyroverapi.nasa.model
 
 import java.time.LocalDate
 
