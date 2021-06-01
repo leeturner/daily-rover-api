@@ -13,11 +13,16 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>daily-rover-api</name>
 	<description>A Spring Boot Kotlin service to access the NASA mars rover image API </description>
+
 	<properties>
 		<java.version>16</java.version>
 		<kotlin.version>1.5.10</kotlin.version>
 		<spring-native.version>0.10.0-SNAPSHOT</spring-native.version>
+    <strikt-core.version>0.31.0</strikt-core.version>
+    <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
+    <junit-jupiter-params.version>5.7.2</junit-jupiter-params.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -45,10 +50,28 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+    <dependency>
+      <groupId>io.strikt</groupId>
+      <artifactId>strikt-core</artifactId>
+      <version>${strikt-core.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit-jupiter-engine.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${junit-jupiter-params.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
-	<build>
-		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+  <build>
+    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
 		<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
 		<plugins>
 			<plugin>
