@@ -1,4 +1,4 @@
-package com.leeturner.dailyroverapi.nasa.model
+package com.leeturner.dailyroverapi.nasa.model.photo
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
