@@ -19,8 +19,11 @@
 		<kotlin.version>1.5.10</kotlin.version>
 		<spring-native.version>0.10.0-SNAPSHOT</spring-native.version>
     <strikt-core.version>0.31.0</strikt-core.version>
+    <mockk.version>1.10.5</mockk.version>
+    <springmockk.version>3.0.1</springmockk.version>
     <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
     <junit-jupiter-params.version>5.7.2</junit-jupiter-params.version>
+    <kotlin-logging-jvm.version>2.0.8</kotlin-logging-jvm.version>
 	</properties>
 
 	<dependencies>
@@ -40,11 +43,25 @@
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-stdlib-jdk8</artifactId>
 		</dependency>
-		<dependency>
+    <dependency>
+      <groupId>org.springframework.retry</groupId>
+      <artifactId>spring-retry</artifactId>
+      <version>${spring-retry.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
+    </dependency>
+    <dependency>
 			<groupId>org.springframework.experimental</groupId>
 			<artifactId>spring-native</artifactId>
 			<version>${spring-native.version}</version>
 		</dependency>
+    <dependency>
+      <groupId>io.github.microutils</groupId>
+      <artifactId>kotlin-logging-jvm</artifactId>
+      <version>${kotlin-logging-jvm.version}</version>
+    </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -54,6 +71,18 @@
       <groupId>io.strikt</groupId>
       <artifactId>strikt-core</artifactId>
       <version>${strikt-core.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.mockk</groupId>
+      <artifactId>mockk</artifactId>
+      <version>${mockk.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.ninja-squad</groupId>
+      <artifactId>springmockk</artifactId>
+      <version>${springmockk.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
