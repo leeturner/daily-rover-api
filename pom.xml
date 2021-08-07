@@ -19,7 +19,7 @@
 		<kotlin.version>1.5.10</kotlin.version>
 		<spring-native.version>0.10.2-SNAPSHOT</spring-native.version>
     <strikt-core.version>0.31.0</strikt-core.version>
-    <mockk.version>1.10.5</mockk.version>
+    <mockk.version>1.12.0</mockk.version>
     <springmockk.version>3.0.1</springmockk.version>
     <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
     <junit-jupiter-params.version>5.7.2</junit-jupiter-params.version>
