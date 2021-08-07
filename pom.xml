@@ -23,7 +23,7 @@
     <springmockk.version>3.0.1</springmockk.version>
     <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
     <junit-jupiter-params.version>5.7.2</junit-jupiter-params.version>
-    <kotlin-logging-jvm.version>2.0.8</kotlin-logging-jvm.version>
+    <kotlin-logging-jvm.version>2.0.10</kotlin-logging-jvm.version>
 	</properties>
 
 	<dependencies>
