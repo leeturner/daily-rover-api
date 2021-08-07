@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.0</version>
+		<version>2.5.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.leeturner</groupId>
@@ -17,7 +17,7 @@
 	<properties>
 		<java.version>16</java.version>
 		<kotlin.version>1.5.10</kotlin.version>
-		<spring-native.version>0.10.0-SNAPSHOT</spring-native.version>
+		<spring-native.version>0.10.2-SNAPSHOT</spring-native.version>
     <strikt-core.version>0.31.0</strikt-core.version>
     <mockk.version>1.10.5</mockk.version>
     <springmockk.version>3.0.1</springmockk.version>
