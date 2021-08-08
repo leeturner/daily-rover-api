@@ -7,6 +7,7 @@ import com.leeturner.dailyroverapi.nasa.model.rover.Rover
 import com.leeturner.dailyroverapi.nasa.model.rover.RoverStatus
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus
+import org.springframework.retry.annotation.Recover
 import org.springframework.retry.annotation.Retryable
 import org.springframework.stereotype.Component
 import org.springframework.web.client.ResourceAccessException
@@ -21,6 +22,7 @@ class MarsRoverPhotoApiClient(
     val marsRovers: MarsRovers
 ) {
 
+    @Retryable(value = [ResourceAccessException::class], maxAttempts = 2)
     fun getPhotosByEarthDate(earthDate: LocalDate): NasaPhotoResponse {
         val photoList: MutableList<Photo> = mutableListOf()
         this.marsRovers.rovers.forEach {
@@ -29,9 +31,8 @@ class MarsRoverPhotoApiClient(
         return NasaPhotoResponse(photos = photoList)
     }
 
-    @Retryable(value = [ResourceAccessException::class], maxAttempts = 2)
     fun getPhotosByEarthDateAndMarRover(earthDate: LocalDate, rover: Rover): List<Photo> {
-        // first lets check to see if the specified rover was on mars for the specified date
+        // first lets check to see if the specified rover was on Mars for the specified date
         if (earthDate < rover.landingDate) {
             logger.info { "Mars Rover (${rover.name}) was not on Mars for the specified date - $earthDate. No API call needs to be made" }
             return listOf()
@@ -48,28 +49,30 @@ class MarsRoverPhotoApiClient(
         val responseEntity =
             this.restTemplate.getForEntity("${rover.photoApiUrl}&earth_date=$earthDate", NasaPhotoResponse::class.java)
         val nasaPhotoResponse = when (responseEntity.statusCode) {
-            // we have a successful response so we should be able to get the results, if not then an empty result
+            // we have a successful response, so we should be able to get the results, if not then an empty result
             HttpStatus.OK -> responseEntity.body ?: NasaPhotoResponse(listOf())
             // any other status will just return an empty list of photos.
-            else -> NasaPhotoResponse(listOf())
+            else -> NasaPhotoResponse(emptyList())
         }
         // so we know we have a Mars rover that was on Mars for the given specified date
         return nasaPhotoResponse.photos
     }
 
-    // TODO: figure out how to deal with the rate limiting - X-RateLimit-Limit: 40 & X-RateLimit-Remaining: 35
-    // success = 200 OK
-    // wrong API Key = 403 Forbidden with the error response:
-    /*
-    {
-        "error": {
-        "code": "API_KEY_INVALID",
-        "message": "An invalid api_key was supplied. Get one at https://api.nasa.gov:443"
+    @Recover
+    fun apiAccessResourceAccessExceptionRecovery(resourceAccessException: ResourceAccessException): NasaPhotoResponse {
+        logger.error(resourceAccessException) {"Cannot access Mars rover photo API - Reason: ${resourceAccessException.message}"}
+        return NasaPhotoResponse(emptyList())
     }
-    */
-    // invalid rover name = 400 bad request with the error response:
-    /*
-    {"errors":"Invalid Rover Name"}
-     */
-    // invalid data makes the api throw a 500 internal server error
+
+//     TODO: figure out how to deal with the rate limiting - X-RateLimit-Limit: 40 & X-RateLimit-Remaining: 35
+//     success = 200 OK
+//     wrong API Key = 403 Forbidden with the error response:
+//    {
+//        "error": {
+//        "code": "API_KEY_INVALID",
+//        "message": "An invalid api_key was supplied. Get one at https://api.nasa.gov:443"
+//    }
+//     invalid rover name = 400 bad request with the error response:
+//    {"errors":"Invalid Rover Name"}
+//     invalid data makes the api throw a 500 internal server error
 }

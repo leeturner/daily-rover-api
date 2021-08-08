@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.ResponseEntity
+import org.springframework.web.client.ResourceAccessException
 import org.springframework.web.client.RestTemplate
 import strikt.api.expectThat
 import strikt.assertions.hasSize
@@ -30,7 +31,7 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
 
     @Test
     internal fun `get photos by earth date loops through all rovers and calls the nasa api`() {
-        // lets pick a date where two of the rovers were on mars
+        // let's pick a date where two of the rovers were on Mars
         val earthDate = LocalDate.of(2021, 3,1)
         val camera = Camera(id = 20, name = "FHAZ", roverId = 4, fullName = "Front Hazard Avoidance Camera")
 
@@ -86,7 +87,7 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
         val rover = marsRovers.rovers[0]
         expectThat(rover.name) isEqualTo "sprint"
 
-        // specify an earth date that is 20 days before the rover lands on mars
+        // specify an earth date that is 20 days before the rover lands on Mars
         val earthDate = rover.landingDate.minusDays(20)
 
         val photos = this.marsRoverPhotoApiClient.getPhotosByEarthDateAndMarRover(earthDate, rover)
@@ -103,12 +104,12 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
 
     @Test
     internal fun `get photos for a rover that had ended its mission on the specified earth date does not call the api`() {
-        // the first rover in the list should be 'sprint', which has already completed its mission on mars
+        // the first rover in the list should be 'sprint', which has already completed its mission on Mars
         val rover = marsRovers.rovers[0]
         expectThat(rover.name) isEqualTo "sprint"
 
-        // specify an earth date that is 20 days after the max date for the rover on mars.  max date should
-        // not be null here but we want to know about it if it is
+        // specify an earth date that is 20 days after the max date for the rover on Mars.  max date should
+        // not be null here, but we want to know about it if it is
         val earthDate = rover.maxDate!!.plusDays(20)
 
         val photos = this.marsRoverPhotoApiClient.getPhotosByEarthDateAndMarRover(earthDate, rover)
@@ -150,5 +151,28 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
             )
         }
         confirmVerified(restTemplate)
+    }
+
+    @Test
+    internal fun `when a ResourceAccessException is thrown the request is retried`() {
+        // let's pick a date where only one rover was on Mars
+        val earthDate = LocalDate.of(2018, 8,6)
+        every {
+            restTemplate.getForEntity(
+                "https://api.nasa.gov/mars-photos/api/v1/curiosity?api_key=DEMO_KEY&earth_date=$earthDate",
+                NasaPhotoResponse::class.java
+            )
+        } throws ResourceAccessException("Cannot access API")
+
+        val nasaPhotoResponse = this.marsRoverPhotoApiClient.getPhotosByEarthDate(earthDate)
+
+        verify(exactly = 2) {
+            restTemplate.getForEntity(
+                "https://api.nasa.gov/mars-photos/api/v1/curiosity?api_key=DEMO_KEY&earth_date=$earthDate",
+                NasaPhotoResponse::class.java
+            )
+        }
+        confirmVerified(restTemplate)
+        expectThat(nasaPhotoResponse.photos).isEmpty()
     }
 }
