@@ -65,6 +65,7 @@ class MarsRoverPhotoApiClient(
     }
 
 //     TODO: figure out how to deal with the rate limiting - X-RateLimit-Limit: 40 & X-RateLimit-Remaining: 35
+//     TODO: deal with other response code:
 //     success = 200 OK
 //     wrong API Key = 403 Forbidden with the error response:
 //    {
