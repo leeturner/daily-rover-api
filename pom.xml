@@ -5,9 +5,10 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.6.2</version>
+		<relativePath/>
 	</parent>
+
 	<groupId>com.leeturner</groupId>
 	<artifactId>daily-rover-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -16,13 +17,12 @@
 
 	<properties>
 		<java.version>16</java.version>
-		<kotlin.version>1.5.10</kotlin.version>
-		<spring-native.version>0.10.2-SNAPSHOT</spring-native.version>
-    <strikt-core.version>0.31.0</strikt-core.version>
-    <mockk.version>1.12.0</mockk.version>
-    <springmockk.version>3.0.1</springmockk.version>
-    <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
-    <junit-jupiter-params.version>5.7.2</junit-jupiter-params.version>
+    <kotlin.version>1.6.10</kotlin.version>
+    <strikt-core.version>0.33.0</strikt-core.version>
+    <mockk.version>1.12.2</mockk.version>
+    <springmockk.version>3.1.0</springmockk.version>
+    <junit-jupiter-engine.version>5.8.2</junit-jupiter-engine.version>
+    <junit-jupiter-params.version>5.8.2</junit-jupiter-params.version>
     <kotlin-logging-jvm.version>2.1.0</kotlin-logging-jvm.version>
 	</properties>
 
@@ -52,11 +52,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-aop</artifactId>
     </dependency>
-    <dependency>
-			<groupId>org.springframework.experimental</groupId>
-			<artifactId>spring-native</artifactId>
-			<version>${spring-native.version}</version>
-		</dependency>
     <dependency>
       <groupId>io.github.microutils</groupId>
       <artifactId>kotlin-logging-jvm</artifactId>
@@ -134,43 +129,6 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<plugin>
-				<groupId>org.springframework.experimental</groupId>
-				<artifactId>spring-aot-maven-plugin</artifactId>
-				<version>${spring-native.version}</version>
-				<executions>
-					<execution>
-						<id>test-generate</id>
-						<goals>
-							<goal>test-generate</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>generate</id>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
-	<repositories>
-		<repository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-		</pluginRepository>
-	</pluginRepositories>
-
 </project>
