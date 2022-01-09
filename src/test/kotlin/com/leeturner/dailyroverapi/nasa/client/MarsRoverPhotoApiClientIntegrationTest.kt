@@ -12,6 +12,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.ResourceAccessException
 import org.springframework.web.client.RestTemplate
@@ -173,6 +174,72 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
             )
         }
         confirmVerified(restTemplate)
+        expectThat(nasaPhotoResponse.photos).isEmpty()
+    }
+
+    @Test
+    internal fun `when a 403 forbidden response is returned from the NASA API an empty list of photos is returned`() {
+        val rover = marsRovers.rovers.last()
+        expectThat(rover.name) isEqualTo "perseverance"
+
+        // specify an earth date that is 20 days after the rover lands on mars
+        val earthDate = rover.landingDate.plusDays(20)
+
+        every {
+            restTemplate.getForEntity(
+                "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY&earth_date=$earthDate",
+                NasaPhotoResponse::class.java
+            )
+        } answers {
+            ResponseEntity.status(HttpStatus.FORBIDDEN).build()
+        }
+
+        val photos = this.marsRoverPhotoApiClient.getPhotosByEarthDateAndMarRover(earthDate, rover)
+
+        expectThat(photos).isEmpty()
+        verify {
+            restTemplate.getForEntity(
+                "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY&earth_date=$earthDate",
+                NasaPhotoResponse::class.java
+            )
+        }
+        confirmVerified(restTemplate)
+    }
+
+    @Test
+    internal fun `when a non OK response is returned from the NASA API an empty list of photos is returned`() {
+        val rover = marsRovers.rovers.last()
+        expectThat(rover.name) isEqualTo "perseverance"
+
+        // specify an earth date that is 20 days after the rover lands on mars
+        val earthDate = rover.landingDate.plusDays(20)
+
+        every {
+            restTemplate.getForEntity(
+                "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY&earth_date=$earthDate",
+                NasaPhotoResponse::class.java
+            )
+        } answers {
+            ResponseEntity.status(HttpStatus.BAD_GATEWAY).build()
+        }
+
+        val photos = this.marsRoverPhotoApiClient.getPhotosByEarthDateAndMarRover(earthDate, rover)
+
+        expectThat(photos).isEmpty()
+        verify {
+            restTemplate.getForEntity(
+                "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY&earth_date=$earthDate",
+                NasaPhotoResponse::class.java
+            )
+        }
+        confirmVerified(restTemplate)
+    }
+
+    @Test
+    internal fun `when a ResourceAccessException is throw an empty list is returned`() {
+        val nasaPhotoResponse = this.marsRoverPhotoApiClient.apiAccessResourceAccessExceptionRecovery(
+            ResourceAccessException("API Access Error")
+        )
         expectThat(nasaPhotoResponse.photos).isEmpty()
     }
 }

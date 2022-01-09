@@ -24,6 +24,7 @@ class MarsRoverPhotoApiClient(
 
     @Retryable(value = [ResourceAccessException::class], maxAttempts = 2)
     fun getPhotosByEarthDate(earthDate: LocalDate): NasaPhotoResponse {
+        // TODO: use a map here to create the photoList ?
         val photoList: MutableList<Photo> = mutableListOf()
         this.marsRovers.rovers.forEach {
             photoList.addAll(this.getPhotosByEarthDateAndMarRover(earthDate = earthDate, rover = it))
@@ -50,9 +51,17 @@ class MarsRoverPhotoApiClient(
             this.restTemplate.getForEntity("${rover.photoApiUrl}&earth_date=$earthDate", NasaPhotoResponse::class.java)
         val nasaPhotoResponse = when (responseEntity.statusCode) {
             // we have a successful response, so we should be able to get the results, if not then an empty result
-            HttpStatus.OK -> responseEntity.body ?: NasaPhotoResponse(listOf())
+            HttpStatus.OK -> responseEntity.body ?: NasaPhotoResponse(emptyList())
+            // we get a 403 FORBIDDEN if the API key is incorrect
+            HttpStatus.FORBIDDEN -> {
+                logger.error { "403 FORBIDDEN response returned from the NASA API, check that your API key is correct. Status: ${responseEntity.statusCode}, body: ${responseEntity.body}" }
+                NasaPhotoResponse(emptyList())
+            }
             // any other status will just return an empty list of photos.
-            else -> NasaPhotoResponse(emptyList())
+            else -> {
+                logger.error { "Non OK response returned from the NASA API. Status: ${responseEntity.statusCode}, body: ${responseEntity.body}" }
+                NasaPhotoResponse(emptyList())
+            }
         }
         // so we know we have a Mars rover that was on Mars for the given specified date
         return nasaPhotoResponse.photos
