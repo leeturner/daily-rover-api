@@ -5,11 +5,11 @@ import com.leeturner.dailyroverapi.nasa.model.rover.MarsRovers
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
-@RestController
+@RestController("v1/rovers")
 class RoversApiController(
     private val marsRovers: MarsRovers
 ) {
-    @GetMapping("/rovers")
+    @GetMapping("/")
     fun getRovers(): List<Rover> {
         return this.marsRovers.rovers
     }
