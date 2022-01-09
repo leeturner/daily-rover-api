@@ -38,7 +38,6 @@ class MarsRoverPhotoApiClient(
                 NasaPhotoResponse(emptyList())
             }
         }
-        // so we know we have a Mars rover that was on Mars for the given specified date
         return nasaPhotoResponse.photos
     }
 
