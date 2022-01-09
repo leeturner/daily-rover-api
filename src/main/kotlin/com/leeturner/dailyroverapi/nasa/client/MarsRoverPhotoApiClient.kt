@@ -2,9 +2,7 @@ package com.leeturner.dailyroverapi.nasa.client
 
 import com.leeturner.dailyroverapi.nasa.model.photo.NasaPhotoResponse
 import com.leeturner.dailyroverapi.nasa.model.photo.Photo
-import com.leeturner.dailyroverapi.nasa.model.rover.MarsRovers
 import com.leeturner.dailyroverapi.nasa.model.rover.Rover
-import com.leeturner.dailyroverapi.nasa.model.rover.RoverStatus
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.retry.annotation.Recover
@@ -19,33 +17,11 @@ private val logger = KotlinLogging.logger {}
 @Component
 class MarsRoverPhotoApiClient(
     val restTemplate: RestTemplate,
-    val marsRovers: MarsRovers
 ) {
 
     @Retryable(value = [ResourceAccessException::class], maxAttempts = 2)
-    fun getPhotosByEarthDate(earthDate: LocalDate): NasaPhotoResponse {
-        val photoList: MutableList<Photo> = mutableListOf()
-        this.marsRovers.rovers.forEach {
-            photoList += this.getPhotosByEarthDateAndMarRover(earthDate = earthDate, rover = it)
-        }
-        return NasaPhotoResponse(photos = photoList)
-    }
-
-    fun getPhotosByEarthDateAndMarRover(earthDate: LocalDate, rover: Rover): List<Photo> {
-        // first lets check to see if the specified rover was on Mars for the specified date
-        if (earthDate < rover.landingDate) {
-            logger.info { "Mars Rover (${rover.name}) was not on Mars for the specified date - $earthDate. No API call needs to be made" }
-            return listOf()
-        }
-
-        // now lets check to see if the rover's mission had ended for the specified date
-        rover.maxDate?.let {
-            if (earthDate > rover.maxDate && rover.status == RoverStatus.COMPETE.status) {
-                logger.info { "Mars Rover (${rover.name}) had ended its mission on Mars for the specified date - $earthDate. No API call needs to be made" }
-                return listOf()
-            }
-        }
-
+    fun getRoverPhotosByDate(earthDate: LocalDate, rover: Rover): List<Photo> {
+        logger.info { "Calling Mars rover Photo API for rover ${rover.name} for earthDate $earthDate" }
         val responseEntity =
             this.restTemplate.getForEntity("${rover.photoApiUrl}&earth_date=$earthDate", NasaPhotoResponse::class.java)
         val nasaPhotoResponse = when (responseEntity.statusCode) {
@@ -67,14 +43,13 @@ class MarsRoverPhotoApiClient(
     }
 
     @Recover
-    fun apiAccessResourceAccessExceptionRecovery(resourceAccessException: ResourceAccessException): NasaPhotoResponse {
-        logger.error(resourceAccessException) {"Cannot access Mars rover photo API - Reason: ${resourceAccessException.message}"}
-        return NasaPhotoResponse(emptyList())
+    fun apiAccessResourceAccessExceptionRecovery(resourceAccessException: ResourceAccessException): List<Photo> {
+        logger.error(resourceAccessException) { "Cannot access Mars rover photo API - Reason: ${resourceAccessException.message}" }
+        return emptyList()
     }
 
 //     TODO: figure out how to deal with the rate limiting - X-RateLimit-Limit: 40 & X-RateLimit-Remaining: 35
 //     TODO: deal with other response code:
 //     invalid rover name = 400 bad request with the error response:
 //    {"errors":"Invalid Rover Name"}
-//     invalid data makes the api throw a 500 internal server error
 }
