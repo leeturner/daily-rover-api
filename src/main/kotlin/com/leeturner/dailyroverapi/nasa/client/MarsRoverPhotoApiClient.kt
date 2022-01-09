@@ -24,10 +24,9 @@ class MarsRoverPhotoApiClient(
 
     @Retryable(value = [ResourceAccessException::class], maxAttempts = 2)
     fun getPhotosByEarthDate(earthDate: LocalDate): NasaPhotoResponse {
-        // TODO: use a map here to create the photoList ?
         val photoList: MutableList<Photo> = mutableListOf()
         this.marsRovers.rovers.forEach {
-            photoList.addAll(this.getPhotosByEarthDateAndMarRover(earthDate = earthDate, rover = it))
+            photoList += this.getPhotosByEarthDateAndMarRover(earthDate = earthDate, rover = it)
         }
         return NasaPhotoResponse(photos = photoList)
     }
@@ -75,13 +74,6 @@ class MarsRoverPhotoApiClient(
 
 //     TODO: figure out how to deal with the rate limiting - X-RateLimit-Limit: 40 & X-RateLimit-Remaining: 35
 //     TODO: deal with other response code:
-//     success = 200 OK
-//     wrong API Key = 403 Forbidden with the error response:
-//    {
-//        "error": {
-//        "code": "API_KEY_INVALID",
-//        "message": "An invalid api_key was supplied. Get one at https://api.nasa.gov:443"
-//    }
 //     invalid rover name = 400 bad request with the error response:
 //    {"errors":"Invalid Rover Name"}
 //     invalid data makes the api throw a 500 internal server error
