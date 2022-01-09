@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController("v1/rovers")
-class RoversApiController(
+class RoversController(
     private val marsRovers: MarsRovers
 ) {
     @GetMapping("/")
