@@ -1,0 +1,5 @@
+### Daily Rover Get yesterdays photos
+GET http://localhost:8080/daily-rover/v1/photos/
+
+### Daily Rover Get photos by date
+GET http://localhost:8080/daily-rover/v1/photos/2009-02-04

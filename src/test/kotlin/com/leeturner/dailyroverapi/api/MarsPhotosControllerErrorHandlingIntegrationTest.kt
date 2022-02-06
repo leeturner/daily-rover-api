@@ -38,25 +38,25 @@ internal class MarsPhotosControllerErrorHandlingIntegrationTest(
 
         verify(exactly = 0) {
             restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/sprint?api_key=DEMO_KEY&earth_date=$earthDate",
+                "https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?api_key=DEMO_KEY&earth_date=$earthDate",
                 NasaPhotoResponse::class.java
             )
         }
         verify(exactly = 0) {
             restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/opportunity?api_key=DEMO_KEY&earth_date=$earthDate",
+                "https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?api_key=DEMO_KEY&earth_date=$earthDate",
                 NasaPhotoResponse::class.java
             )
         }
         verify(exactly = 0) {
             restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/curiosity?api_key=DEMO_KEY&earth_date=$earthDate",
+                "https://api.nasa.gov/mars-photos/api/v1/curiosity/photos?api_key=DEMO_KEY&earth_date=$earthDate",
                 NasaPhotoResponse::class.java
             )
         }
         verify(exactly = 0) {
             restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY&earth_date=$earthDate",
+                "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY&earth_date=$earthDate",
                 NasaPhotoResponse::class.java
             )
         }

@@ -34,7 +34,7 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
 
         every {
             restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY&earth_date=$earthDate",
+                "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY&earth_date=$earthDate",
                 NasaPhotoResponse::class.java
             )
         } answers {
@@ -46,7 +46,7 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
         expectThat(photos).isEmpty()
         verify {
             restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY&earth_date=$earthDate",
+                "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY&earth_date=$earthDate",
                 NasaPhotoResponse::class.java
             )
         }
@@ -63,7 +63,7 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
 
         every {
             restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY&earth_date=$earthDate",
+                "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY&earth_date=$earthDate",
                 NasaPhotoResponse::class.java
             )
         } throws ResourceAccessException("Cannot access API")
@@ -72,7 +72,7 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
 
         verify(exactly = 2) {
             restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY&earth_date=$earthDate",
+                "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY&earth_date=$earthDate",
                 NasaPhotoResponse::class.java
             )
         }
@@ -90,7 +90,7 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
 
         every {
             restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY&earth_date=$earthDate",
+                "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY&earth_date=$earthDate",
                 NasaPhotoResponse::class.java
             )
         } answers {
@@ -102,7 +102,7 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
         expectThat(photos).isEmpty()
         verify {
             restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY&earth_date=$earthDate",
+                "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY&earth_date=$earthDate",
                 NasaPhotoResponse::class.java
             )
         }
@@ -119,7 +119,7 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
 
         every {
             restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY&earth_date=$earthDate",
+                "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY&earth_date=$earthDate",
                 NasaPhotoResponse::class.java
             )
         } answers {
@@ -131,7 +131,7 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
         expectThat(photos).isEmpty()
         verify {
             restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY&earth_date=$earthDate",
+                "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY&earth_date=$earthDate",
                 NasaPhotoResponse::class.java
             )
         }

@@ -21,13 +21,13 @@ internal class MarsRoversIntegrationTest(
     internal fun `ensure there the correct properties are set for each rover`() {
         expectThat(this.marsRovers.rovers[0]) {
             get { id } isEqualTo 1
-            get { name } isEqualTo "sprint"
+            get { name } isEqualTo "spirit"
             get { launchDate } isEqualTo LocalDate.of(2003,6,10)
             get { landingDate } isEqualTo LocalDate.of(2004,1,4)
             get { maxDate } isEqualTo LocalDate.of(2010,3,21)
             get { maxSol } isEqualTo 2208
             get { status } isEqualTo "complete"
-            get { photoApiUrl } isEqualTo "https://api.nasa.gov/mars-photos/api/v1/spirit?api_key=DEMO_KEY"
+            get { photoApiUrl } isEqualTo "https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?api_key=DEMO_KEY"
         }
 
         expectThat(this.marsRovers.rovers[1]) {
@@ -38,7 +38,7 @@ internal class MarsRoversIntegrationTest(
             get { maxDate } isEqualTo LocalDate.of(2018,6,11)
             get { maxSol } isEqualTo 5111
             get { status } isEqualTo "complete"
-            get { photoApiUrl } isEqualTo "https://api.nasa.gov/mars-photos/api/v1/opportunity?api_key=DEMO_KEY"
+            get { photoApiUrl } isEqualTo "https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?api_key=DEMO_KEY"
         }
 
         expectThat(this.marsRovers.rovers[2]) {
@@ -49,7 +49,7 @@ internal class MarsRoversIntegrationTest(
             get { maxDate } isEqualTo null
             get { maxSol } isEqualTo null
             get { status } isEqualTo "active"
-            get { photoApiUrl } isEqualTo "https://api.nasa.gov/mars-photos/api/v1/curiosity?api_key=DEMO_KEY"
+            get { photoApiUrl } isEqualTo "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY"
         }
 
         expectThat(this.marsRovers.rovers[3]) {
@@ -60,7 +60,7 @@ internal class MarsRoversIntegrationTest(
             get { maxDate } isEqualTo null
             get { maxSol } isEqualTo null
             get { status } isEqualTo "active"
-            get { photoApiUrl } isEqualTo "https://api.nasa.gov/mars-photos/api/v1/perseverance?api_key=DEMO_KEY"
+            get { photoApiUrl } isEqualTo "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY"
         }
     }
 }
