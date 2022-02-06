@@ -161,9 +161,10 @@ This service uses the following languages, frameworks and libraries:
 * [mockk](https://github.com/mockk/mockk)
 * [springmockk](https://github.com/Ninja-Squad/springmockk)
 * [Junit](https://github.com/junit-team/junit5)
+
 ## Contributing
 
-Contributions are always welcome!
+Contributions are always welcome!  See the [TODO.md](TODO.md) for some ideas on how you can contribute to this project.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for ways to get started.
 
