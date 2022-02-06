@@ -40,6 +40,7 @@ class MarsPhotosService(
             }
         }
 
+        // so we know we have a Mars rover that was active on Mars for the specified date
         return this.marsRoverPhotoApiClient.getRoverPhotosByDate(earthDate, rover)
     }
 }
