@@ -4,6 +4,7 @@ import com.leeturner.dailyroverapi.exception.FutureDateException
 import com.leeturner.dailyroverapi.nasa.model.photo.NasaPhotoResponse
 import com.leeturner.dailyroverapi.service.MarsPhotosService
 import mu.KotlinLogging
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -19,13 +20,13 @@ class MarsPhotosController(
     val marsPhotosService: MarsPhotosService
 ) {
 
-    @GetMapping("/")
+    @GetMapping("/", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getPhotosForYesterday(): ResponseEntity<NasaPhotoResponse> {
         logger.info { "Getting photos for yesterday" }
         return this.getPhotosByEarthDate(LocalDate.now().minusDays(1))
     }
 
-    @GetMapping("/{earthDate}")
+    @GetMapping("/{earthDate}", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getPhotosByEarthDate(@PathVariable earthDate: LocalDate): ResponseEntity<NasaPhotoResponse> {
         // we can't return photos for future dates
         if (earthDate.isAfter(LocalDate.now())) {
