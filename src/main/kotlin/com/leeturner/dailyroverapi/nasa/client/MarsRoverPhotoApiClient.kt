@@ -21,9 +21,9 @@ class MarsRoverPhotoApiClient(
 
     @Retryable(value = [ResourceAccessException::class], maxAttempts = 2)
     fun getRoverPhotosByDate(earthDate: LocalDate, rover: Rover): List<Photo> {
-        logger.info { "Calling Mars rover Photo API for rover ${rover.name} for earthDate $earthDate" }
-        val responseEntity =
-            this.restTemplate.getForEntity("${rover.photoApiUrl}&earth_date=$earthDate", NasaPhotoResponse::class.java)
+        val roverApiUrl = "${rover.photoApiUrl}&earth_date=$earthDate"
+        logger.info { "Calling Mars rover Photo API for rover ${rover.name} for earthDate $earthDate - $roverApiUrl" }
+        val responseEntity = this.restTemplate.getForEntity(roverApiUrl, NasaPhotoResponse::class.java)
         val nasaPhotoResponse = when (responseEntity.statusCode) {
             // we have a successful response, so we should be able to get the results, if not then an empty result
             HttpStatus.OK -> responseEntity.body ?: NasaPhotoResponse(emptyList())
@@ -47,8 +47,4 @@ class MarsRoverPhotoApiClient(
         return emptyList()
     }
 
-//     TODO: figure out how to deal with the rate limiting - X-RateLimit-Limit: 40 & X-RateLimit-Remaining: 35
-//     TODO: deal with other response code:
-//     invalid rover name = 400 bad request with the error response:
-//    {"errors":"Invalid Rover Name"}
 }

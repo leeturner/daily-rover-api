@@ -22,8 +22,7 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
     @Autowired private val marsRovers: MarsRovers,
     @Autowired private val marsRoverPhotoApiClient: MarsRoverPhotoApiClient
 ) {
-    @MockkBean
-    private lateinit var restTemplate: RestTemplate
+    @MockkBean private lateinit var restTemplate: RestTemplate
 
     @Test
     internal fun `get photos uses the correct url for the nasa rover photo api`() {
