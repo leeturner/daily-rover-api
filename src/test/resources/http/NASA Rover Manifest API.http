@@ -1,0 +1,11 @@
+### Get Mars rover details - curiosity
+GET https://api.nasa.gov/mars-photos/api/v1/manifests/curiosity?api_key=DEMO_KEY
+
+### Get Mars rover details - sprint
+GET https://api.nasa.gov/mars-photos/api/v1/manifests/sprint?api_key=DEMO_KEY
+
+### Get Mars rover details - opportunity
+GET https://api.nasa.gov/mars-photos/api/v1/manifests/opportunity?api_key=DEMO_KEY
+
+### Get Mars rover details - perseverance
+GET https://api.nasa.gov/mars-photos/api/v1/manifests/perseverance?api_key=DEMO_KEY
