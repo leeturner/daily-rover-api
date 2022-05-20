@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.2</version>
+		<version>2.7.0</version>
 		<relativePath/>
 	</parent>
 
@@ -16,9 +16,9 @@
 	<description>A Spring Boot Kotlin service to access the NASA mars rover image API </description>
 
 	<properties>
-		<java.version>16</java.version>
-    <kotlin.version>1.6.10</kotlin.version>
-    <strikt-core.version>0.33.0</strikt-core.version>
+		<java.version>17</java.version>
+    <kotlin.version>1.6.20</kotlin.version>
+    <strikt-core.version>0.34.0</strikt-core.version>
     <mockk.version>1.12.2</mockk.version>
     <springmockk.version>3.1.0</springmockk.version>
     <junit-jupiter-engine.version>5.8.2</junit-jupiter-engine.version>
