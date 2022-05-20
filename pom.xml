@@ -18,9 +18,9 @@
 	<properties>
 		<java.version>17</java.version>
     <kotlin.version>1.6.20</kotlin.version>
-    <strikt-core.version>0.34.0</strikt-core.version>
-    <mockk.version>1.12.2</mockk.version>
-    <springmockk.version>3.1.0</springmockk.version>
+    <strikt-core.version>0.34.1</strikt-core.version>
+    <mockk.version>1.12.4</mockk.version>
+    <springmockk.version>3.1.1</springmockk.version>
     <junit-jupiter-engine.version>5.8.2</junit-jupiter-engine.version>
     <junit-jupiter-params.version>5.8.2</junit-jupiter-params.version>
     <kotlin-logging-jvm.version>2.1.21</kotlin-logging-jvm.version>
