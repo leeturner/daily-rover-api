@@ -22,7 +22,7 @@ class MarsPhotosService(
         this.marsRovers.rovers.forEach { rover ->
             photoList += this.getPhotosByEarthDateAndMarRover(earthDate, rover)
         }
-        return NasaPhotoResponse(photos = photoList)
+        return NasaPhotoResponse(earthDate = earthDate, photos = photoList)
     }
 
     fun getPhotosByEarthDateAndMarRover(earthDate: LocalDate, rover: Rover): List<Photo> {
