@@ -14,6 +14,7 @@ This will return a `json` payload with all the photos across all the Mars rovers
 
 ```json
 {
+    "earthDate": "2015-06-03",
     "photos": [
         {
             "id": 102685,
