@@ -21,7 +21,7 @@
     <strikt-core.version>0.34.1</strikt-core.version>
     <mockk.version>1.13.2</mockk.version>
     <springmockk.version>3.1.1</springmockk.version>
-    <kotlin-logging-jvm.version>3.0.4</kotlin-logging-jvm.version>
+    <kotlin-logging-jvm.version>3.0.5</kotlin-logging-jvm.version>
     <spring-retry.version>2.0.0</spring-retry.version>
     <snakeyaml.version>1.33</snakeyaml.version>
   </properties>
