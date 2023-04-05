@@ -1,10 +1,9 @@
 package com.leeturner.dailyroverapi.nasa.model.rover
 
-import org.springframework.boot.context.properties.ConstructorBinding
+import org.springframework.boot.context.properties.bind.ConstructorBinding
 import java.time.LocalDate
 
-@ConstructorBinding
-data class Rover(
+data class Rover @ConstructorBinding constructor(
     val id: Int,
     val name: String,
     val landingDate: LocalDate,
