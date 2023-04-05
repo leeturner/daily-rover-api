@@ -26,16 +26,16 @@ class MarsRoverPhotoApiClient(
         val responseEntity = this.restTemplate.getForEntity(roverApiUrl, NasaPhotoResponse::class.java)
         val nasaPhotoResponse = when (responseEntity.statusCode) {
             // we have a successful response, so we should be able to get the results, if not then an empty result
-            HttpStatus.OK -> responseEntity.body ?: NasaPhotoResponse(earthDate = earthDate, emptyList())
+            HttpStatus.OK -> responseEntity.body ?: NasaPhotoResponse(photos = emptyList())
             // we get a 403 FORBIDDEN if the API key is incorrect
             HttpStatus.FORBIDDEN -> {
                 logger.error { "403 FORBIDDEN response returned from the NASA API, check that your API key is correct. Status: ${responseEntity.statusCode}, body: ${responseEntity.body}" }
-                NasaPhotoResponse(earthDate = earthDate, emptyList())
+                NasaPhotoResponse(photos = emptyList())
             }
             // any other status will just return an empty list of photos.
             else -> {
                 logger.error { "Non OK response returned from the NASA API. Status: ${responseEntity.statusCode}, body: ${responseEntity.body}" }
-                NasaPhotoResponse(earthDate = earthDate, emptyList())
+                NasaPhotoResponse(photos = emptyList())
             }
         }
         return nasaPhotoResponse.photos

@@ -1,7 +1,8 @@
 # daily-rover-api
-A Spring Boot Kotlin service to access the NASA mars rover image API by earth date.
+A Spring Boot Kotlin service to access the NASA mars rover image API by earth date.  This will return the photos for all rovers on a given earth date
 
 You can find out more about the NASA Mars rover image API and get your own API key [here](https://api.nasa.gov) and [here](https://github.com/chrisccerami/mars-photo-api)
+
 ## Usage/Examples
 
 This rest API allows you to pass in a date and will return the images for all the Mars rovers for the date you passed.  The date is passed on the url as shown below:
@@ -14,7 +15,6 @@ This will return a `json` payload with all the photos across all the Mars rovers
 
 ```json
 {
-    "earthDate": "2015-06-03",
     "photos": [
         {
             "id": 102685,

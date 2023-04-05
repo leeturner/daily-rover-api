@@ -38,7 +38,7 @@ internal class MarsRoverPhotoApiClientIntegrationTest(
                 NasaPhotoResponse::class.java
             )
         } answers {
-            ResponseEntity.ok(NasaPhotoResponse(earthDate = earthDate, listOf()))
+            ResponseEntity.ok(NasaPhotoResponse(photos = listOf()))
         }
 
         val photos = this.marsRoverPhotoApiClient.getRoverPhotosByDate(earthDate, rover)

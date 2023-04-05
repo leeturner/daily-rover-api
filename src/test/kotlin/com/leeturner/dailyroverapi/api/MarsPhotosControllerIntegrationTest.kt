@@ -76,12 +76,11 @@ internal class MarsPhotosControllerIntegrationTest(
                 NasaPhotoResponse::class.java
             )
         } answers {
-            ResponseEntity.ok(NasaPhotoResponse(earthDate = earthDate, listOf()))
+            ResponseEntity.ok(NasaPhotoResponse(photos = listOf()))
         }
 
         this.mockMvc.perform(get("/v1/photos/$earthDate"))
             .andExpect(status().isOk)
-            .andExpect(jsonPath("\$.earthDate", `is`("2022-02-04")))
             .andExpect(jsonPath("\$.photos.length()", `is`(1)))
             .andExpect(jsonPath("\$.photos[0].id", `is`(nasaPhotoResponse.photos[0].id)))
             .andExpect(jsonPath("\$.photos[0].sol", `is`(nasaPhotoResponse.photos[0].sol)))
