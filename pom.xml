@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.0.5</version>
+    <version>3.0.6</version>
     <relativePath/>
   </parent>
 
@@ -19,10 +19,10 @@
     <java.version>17</java.version>
     <kotlin.version>1.7.10</kotlin.version>
     <strikt-core.version>0.34.1</strikt-core.version>
-    <mockk.version>1.13.2</mockk.version>
-    <springmockk.version>3.1.1</springmockk.version>
-    <kotlin-logging-jvm.version>3.0.4</kotlin-logging-jvm.version>
-    <spring-retry.version>2.0.0</spring-retry.version>
+    <mockk.version>1.13.5</mockk.version>
+    <springmockk.version>4.0.2</springmockk.version>
+    <kotlin-logging-jvm.version>3.0.5</kotlin-logging-jvm.version>
+    <spring-retry.version>2.0.1</spring-retry.version>
     <snakeyaml.version>2.0</snakeyaml.version>
   </properties>
 
@@ -31,7 +31,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.9.1</version>
+        <version>5.9.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
