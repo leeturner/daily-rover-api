@@ -13,9 +13,10 @@ private val logger = KotlinLogging.logger {}
 @ControllerAdvice
 class MarsPhotosExceptionHandler {
 
-    @ExceptionHandler(FutureDateException::class)
-    fun handleFutureDateException(e: FutureDateException): ResponseEntity<ErrorResponse> {
-        logger.error { "FutureDateException thrown due to earth date being in the future" }
-        return ResponseEntity.badRequest().body(ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.message ?: ""))
-    }
+  @ExceptionHandler(FutureDateException::class)
+  fun handleFutureDateException(e: FutureDateException): ResponseEntity<ErrorResponse> {
+    logger.error { "FutureDateException thrown due to earth date being in the future" }
+    return ResponseEntity.badRequest()
+        .body(ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.message ?: ""))
+  }
 }

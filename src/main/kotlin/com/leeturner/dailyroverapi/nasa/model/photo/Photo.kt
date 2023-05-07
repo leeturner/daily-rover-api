@@ -11,8 +11,7 @@ data class Photo(
     @JsonProperty("earth_date")
     @JsonDeserialize(using = LocalDateDeserializer::class)
     val earthDate: LocalDate,
-    @JsonProperty("img_src")
-    val imgSrc: String,
+    @JsonProperty("img_src") val imgSrc: String,
     val camera: Camera,
     val rover: Rover
 )

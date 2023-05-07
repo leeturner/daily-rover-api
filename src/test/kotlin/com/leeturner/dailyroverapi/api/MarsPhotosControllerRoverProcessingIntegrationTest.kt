@@ -23,84 +23,71 @@ internal class MarsPhotosControllerRoverProcessingIntegrationTest(
     @Autowired private val marsRovers: MarsRovers,
     @Autowired private val mockMvc: MockMvc,
 ) {
-    @MockkBean(relaxed = true)
-    private lateinit var restTemplate: RestTemplate
+  @MockkBean(relaxed = true) private lateinit var restTemplate: RestTemplate
 
-    @Test
-    internal fun `get photos for a date where no rovers were on mars does not call the nasa api`() {
-        // the first rover in the list should be 'spirit'
-        val rover = marsRovers.rovers[0]
-        expectThat(rover.name) isEqualTo "spirit"
+  @Test
+  internal fun `get photos for a date where no rovers were on mars does not call the nasa api`() {
+    // the first rover in the list should be 'spirit'
+    val rover = marsRovers.rovers[0]
+    expectThat(rover.name) isEqualTo "spirit"
 
-        // specify an earth date that is 20 days before the rover lands on Mars
-        val earthDate = rover.landingDate.minusDays(20)
+    // specify an earth date that is 20 days before the rover lands on Mars
+    val earthDate = rover.landingDate.minusDays(20)
 
-        this.mockMvc.perform(get("/v1/photos/$earthDate"))
-            .andExpect(status().isOk)
-            .andDo(print())
+    this.mockMvc.perform(get("/v1/photos/$earthDate")).andExpect(status().isOk).andDo(print())
 
-        verify(exactly = 0) {
-            restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?api_key=DEMO_KEY&earth_date=$earthDate",
-                NasaPhotoResponse::class.java
-            )
-        }
-        verify(exactly = 0) {
-            restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/opportunity/photos?api_key=DEMO_KEY&earth_date=$earthDate",
-                NasaPhotoResponse::class.java
-            )
-        }
-        verify(exactly = 0) {
-            restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photosapi_key=DEMO_KEY&earth_date=$earthDate",
-                NasaPhotoResponse::class.java
-            )
-        }
-        verify(exactly = 0) {
-            restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY&earth_date=$earthDate",
-                NasaPhotoResponse::class.java
-            )
-        }
-        confirmVerified(restTemplate)
+    verify(exactly = 0) {
+      restTemplate.getForEntity(
+          "https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?api_key=DEMO_KEY&earth_date=$earthDate",
+          NasaPhotoResponse::class.java)
     }
-
-    @Test
-    internal fun `get photos only calls the nasa api for the rovers that are active on mars for the specified date`() {
-        // only opportunity and curiosity should have been active on this date.  It was after spirit completed
-        // its mission and before perseverance landed
-        val earthDate = "2018-06-01"
-
-        this.mockMvc.perform(get("/v1/photos/$earthDate"))
-            .andExpect(status().isOk)
-            .andDo(print())
-
-        verify(exactly = 0) {
-            restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?api_key=DEMO_KEY&earth_date=$earthDate",
-                NasaPhotoResponse::class.java
-            )
-        }
-        verify(exactly = 1) {
-            restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?api_key=DEMO_KEY&earth_date=$earthDate",
-                NasaPhotoResponse::class.java
-            )
-        }
-        verify(exactly = 1) {
-            restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&earth_date=$earthDate",
-                NasaPhotoResponse::class.java
-            )
-        }
-        verify(exactly = 0) {
-            restTemplate.getForEntity(
-                "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY&earth_date=$earthDate",
-                NasaPhotoResponse::class.java
-            )
-        }
-        confirmVerified(restTemplate)
+    verify(exactly = 0) {
+      restTemplate.getForEntity(
+          "https://api.nasa.gov/mars-photos/api/v1/opportunity/photos?api_key=DEMO_KEY&earth_date=$earthDate",
+          NasaPhotoResponse::class.java)
     }
+    verify(exactly = 0) {
+      restTemplate.getForEntity(
+          "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photosapi_key=DEMO_KEY&earth_date=$earthDate",
+          NasaPhotoResponse::class.java)
+    }
+    verify(exactly = 0) {
+      restTemplate.getForEntity(
+          "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY&earth_date=$earthDate",
+          NasaPhotoResponse::class.java)
+    }
+    confirmVerified(restTemplate)
+  }
 
+  @Test
+  internal fun `get photos only calls the nasa api for the rovers that are active on mars for the specified date`() {
+    // only opportunity and curiosity should have been active on this date.  It was after spirit
+    // completed
+    // its mission and before perseverance landed
+    val earthDate = "2018-06-01"
+
+    this.mockMvc.perform(get("/v1/photos/$earthDate")).andExpect(status().isOk).andDo(print())
+
+    verify(exactly = 0) {
+      restTemplate.getForEntity(
+          "https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?api_key=DEMO_KEY&earth_date=$earthDate",
+          NasaPhotoResponse::class.java)
+    }
+    verify(exactly = 1) {
+      restTemplate.getForEntity(
+          "https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?api_key=DEMO_KEY&earth_date=$earthDate",
+          NasaPhotoResponse::class.java)
+    }
+    verify(exactly = 1) {
+      restTemplate.getForEntity(
+          "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&earth_date=$earthDate",
+          NasaPhotoResponse::class.java)
+    }
+    verify(exactly = 0) {
+      restTemplate.getForEntity(
+          "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?api_key=DEMO_KEY&earth_date=$earthDate",
+          NasaPhotoResponse::class.java)
+    }
+    confirmVerified(restTemplate)
+  }
 }

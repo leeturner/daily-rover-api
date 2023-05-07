@@ -5,6 +5,4 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 @ConfigurationProperties(prefix = "nasa")
-data class MarsRovers(
-    val rovers: List<Rover>
-)
+data class MarsRovers(val rovers: List<Rover>)

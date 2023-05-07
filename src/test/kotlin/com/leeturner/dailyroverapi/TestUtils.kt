@@ -6,10 +6,10 @@ import com.leeturner.dailyroverapi.nasa.model.photo.NasaPhotoResponse
 
 object TestUtils {
 
-    private val objectMapper: ObjectMapper = ObjectMapper().registerModule(KotlinModule())
+  private val objectMapper: ObjectMapper = ObjectMapper().registerModule(KotlinModule())
 
-    fun getNasaResponse(fileName: String): NasaPhotoResponse {
-        val inputStream = this.javaClass.getResourceAsStream("/json/nasa-response/$fileName")
-        return objectMapper.readValue(inputStream, NasaPhotoResponse::class.java)
-    }
+  fun getNasaResponse(fileName: String): NasaPhotoResponse {
+    val inputStream = this.javaClass.getResourceAsStream("/json/nasa-response/$fileName")
+    return objectMapper.readValue(inputStream, NasaPhotoResponse::class.java)
+  }
 }

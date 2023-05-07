@@ -16,11 +16,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 class MarsRoverControllerIntegrationTest(
     @Autowired private val mockMvc: MockMvc,
 ) {
-    @Test
-    internal fun `the rovers endpoint returns all rovers`() {
-        this.mockMvc.perform(get("/v1/rovers/"))
-            .andExpect(status().isOk)
-            .andExpect(jsonPath("\$.length()", `is`(4)))
-            .andDo(print())
-    }
+  @Test
+  internal fun `the rovers endpoint returns all rovers`() {
+    this.mockMvc
+        .perform(get("/v1/rovers/"))
+        .andExpect(status().isOk)
+        .andExpect(jsonPath("\$.length()", `is`(4)))
+        .andDo(print())
+  }
 }
