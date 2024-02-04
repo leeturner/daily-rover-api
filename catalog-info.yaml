@@ -13,6 +13,12 @@ metadata:
           name: GitHub
           icon: github
           type: git
+        - url: https://api.nasa.gov
+          name: NASA API
+          type: api
+        - url: https://github.com/chrisccerami/mars-photo-api
+          icon: github
+          type: git
     annotations:
         backstage.io/techdocs-ref: dir:.
         github.com/project-slug: leeturner/daily-rover-api
