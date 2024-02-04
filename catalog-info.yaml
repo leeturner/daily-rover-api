@@ -18,5 +18,6 @@ metadata:
         github.com/project-slug: leeturner/daily-rover-api
 spec:
     type: service
+    system: daily-rover
     lifecycle: production
     owner: team-rover
