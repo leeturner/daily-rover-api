@@ -28,13 +28,3 @@ spec:
     lifecycle: production
     owner: team-rover
     apiProvidedBy: daily-rover-api
----
-apiVersion: backstage.io/v1alpha1
-kind: API
-metadata:
-    name: daily-rover-api
-    description: The daily rover API consumed by web components and cli
-spec:
-    type: openapi
-    lifecycle: production
-    owner: team-rover
