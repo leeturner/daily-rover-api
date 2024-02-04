@@ -15,6 +15,7 @@ metadata:
           type: git
     annotations:
         backstage.io/techdocs-ref: dir:.
+        github.com/project-slug: leeturner/daily-rover-api
 spec:
     type: service
     lifecycle: production

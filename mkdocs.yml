@@ -3,3 +3,5 @@ repo_url: https://github.com/leeturner/daily-rover-api
 repo_name: GitHub
 site_description: A Spring Boot Kotlin service to access the NASA mars rover image API
 site_author: Lee Turner
+nav:
+    - Home: 'index.md'
