@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-    name: daily-rover-api
+    name: daily-rover
     description: A Spring Boot Kotlin service to access the NASA mars rover image API
     tags:
         - kotlin
@@ -25,5 +25,16 @@ metadata:
 spec:
     type: service
     system: daily-rover
+    lifecycle: production
+    owner: team-rover
+    apiProvidedBy: daily-rover-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+    name: daily-rover-api
+    description: The daily rover API consumed by web components and cli
+spec:
+    type: openapi
     lifecycle: production
     owner: team-rover
