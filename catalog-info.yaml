@@ -29,3 +29,5 @@ spec:
     owner: team-rover
     providesApis:
         - daily-rover-api
+    consumesApis:
+        - nasa-mars-images
