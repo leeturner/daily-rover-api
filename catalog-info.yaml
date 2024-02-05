@@ -27,4 +27,5 @@ spec:
     system: daily-rover
     lifecycle: production
     owner: team-rover
-    apiProvidedBy: daily-rover-api
+    providesApis:
+        - daily-rover-api
