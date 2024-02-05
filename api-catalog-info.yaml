@@ -15,4 +15,4 @@ spec:
     lifecycle: production
     owner: team-rover
     definition:
-        $text: ./openapi.yaml
+        $yaml: https://github.com/leeturner/daily-rover-api/blob/main/openapi.yaml
