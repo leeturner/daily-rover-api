@@ -16,3 +16,7 @@ tab_width = 2
 [*.xml]
 indent_size = 2
 tab_width = 2
+
+[*.yaml]
+indent_size = 2
+tab_width = 2
