@@ -2,6 +2,8 @@ openapi: 3.0.1
 info:
     title: Daily Rover API
     version: 1.0.0
+servers:
+- url: https://dev-w1w93.wiremockapi.cloud
 paths:
     /v1/photos/{earthDate}:
         get:
