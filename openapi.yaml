@@ -3,187 +3,187 @@ info:
   title: Git Open API Fun And Games
   version: 1.0.0
 servers:
-- url: https://dev-w1w93.wiremockapi.cloud
+  - url: https://dev-w1w93.wiremockapi.cloud
 paths:
-    /v1/photos/{earthDate}:
-        get:
-            responses:
-                "200":
-                    description: 200 response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/GetV1Photos200ResponseBody"
-                "400":
-                    description: 400 response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/V1ErrorResponseBody"
-            parameters:
-                - schema:
-                      type: string
-                  in: path
-                  name: earthDate
-                  required: true
-    /v1/rovers:
-        get:
-            responses:
-                "200":
-                    description: 200 response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/GetV1Rovers200ResponseBody"
+  /v1/photos/{earthDate}:
+    get:
+      responses:
+        "200":
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetV1Photos200ResponseBody"
+        "400":
+          description: 400 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/V1ErrorResponseBody"
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: earthDate
+          required: true
+  /v1/rovers:
+    get:
+      responses:
+        "200":
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetV1Rovers200ResponseBody"
 components:
-    schemas:
-        V1ErrorResponseBody:
-            type: object
-            properties: 
-                errorCode:
-                    type: integer
-                    format: int32
-                    example: 400
-                message:
-                    type: string
-                    example: The earth date can not be a future date
-            example:
-                errorCode: 400
-                message: The earth date can not be a future date
-        GetV1Rovers200ResponseBody:
-            type: array
-            items:
-              type: object
-              properties:
-                id:
-                    type: integer
-                    format: int32
-                    example: 1
-                name:
-                    type: string
-                    example: spirit
-                landingDate:
-                    type: string
-                    format: date
-                    example: 2004-01-04
-                launchDate:
-                    type: string
-                    format: date
-                    example: 2003-06-10
-                maxDate:
-                    type: string
-                    format: date
-                    example: 2010-03-21
-                maxSol:
-                    type: integer
-                    format: int32
-                    example: 2208
-                status:
-                    type: string
-                    example: complete
-            example:
-                - id: 1
-                  name: spirit
-                  landingDate: 2004-01-04
-                  launchDate: 2003-06-10
-                  maxDate: 2010-03-21
-                  maxSol: 2208
-                  status: complete
-                - id: 3
-                  name: opportunity
-                  landingDate: 2004-01-25
-                  launchDate: 2003-07-07
-                  maxDate: 2018-06-11
-                  maxSol: 5111
-                  status: complete
-                - id: 2
-                  name: curiosity
-                  landingDate: 2012-08-06
-                  launchDate: 2011-11-26
-                  maxDate: null
-                  maxSol: null
-                  status: active
-                - id: 4
-                  name: perseverance
-                  landingDate: 2021-02-18
-                  launchDate: 2020-07-30
-                  maxDate: null
-                  maxSol: null
-                  status: active
-        GetV1Photos200ResponseBody:
+  schemas:
+    V1ErrorResponseBody:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          format: int32
+          example: 400
+        message:
+          type: string
+          example: The earth date can not be a future date
+      example:
+        errorCode: 400
+        message: The earth date can not be a future date
+    GetV1Rovers200ResponseBody:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int32
+            example: 1
+          name:
+            type: string
+            example: spirit
+          landingDate:
+            type: string
+            format: date
+            example: 2004-01-04
+          launchDate:
+            type: string
+            format: date
+            example: 2003-06-10
+          maxDate:
+            type: string
+            format: date
+            example: 2010-03-21
+          maxSol:
+            type: integer
+            format: int32
+            example: 2208
+          status:
+            type: string
+            example: complete
+      example:
+        - id: 1
+          name: spirit
+          landingDate: 2004-01-04
+          launchDate: 2003-06-10
+          maxDate: 2010-03-21
+          maxSol: 2208
+          status: complete
+        - id: 3
+          name: opportunity
+          landingDate: 2004-01-25
+          launchDate: 2003-07-07
+          maxDate: 2018-06-11
+          maxSol: 5111
+          status: complete
+        - id: 2
+          name: curiosity
+          landingDate: 2012-08-06
+          launchDate: 2011-11-26
+          maxDate: null
+          maxSol: null
+          status: active
+        - id: 4
+          name: perseverance
+          landingDate: 2021-02-18
+          launchDate: 2020-07-30
+          maxDate: null
+          maxSol: null
+          status: active
+    GetV1Photos200ResponseBody:
+      type: object
+      properties:
+        photos:
+          type: array
+          items:
             type: object
             properties:
-                photos:
-                    type: array
-                    items:
-                        type: object
-                        properties:
-                            id:
-                                type: integer
-                                format: int32
-                                example: 102685
-                            sol:
-                                type: integer
-                                format: int32
-                                example: 1004
-                            camera:
-                                type: object
-                                properties:
-                                    id:
-                                        type: integer
-                                        format: int32
-                                        example: 20
-                                    name:
-                                        type: string
-                                        example: FHAZ
-                                    rover_id:
-                                        type: integer
-                                        format: int32
-                                        example: 5
-                                    full_name:
-                                        type: string
-                                        example: Front Hazard Avoidance Camera
-                            img_src:
-                                type: string
-                                example: http://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/01004/opgs/edr/fcam/FLB_486615455EDR_F0481570FHAZ00323M_.JPG
-                            earth_date:
-                                type: string
-                                format: date
-                                example: 2015-06-03
-                            rover:
-                                type: object
-                                properties:
-                                    id:
-                                        type: integer
-                                        format: int32
-                                        example: 5
-                                    name:
-                                        type: string
-                                        example: Curiosity
-                                    landing_date:
-                                        type: string
-                                        format: date
-                                        example: 2012-08-06
-                                    launch_date:
-                                        type: string
-                                        format: date
-                                        example: 2011-11-26
-                                    status:
-                                        type: string
-                                        example: active
-                    example:
-                        - id: 102685
-                          sol: 1004
-                          camera:
-                              id: 20
-                              name: FHAZ
-                              rover_id: 5
-                              full_name: Front Hazard Avoidance Camera
-                          img_src: http://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/01004/opgs/edr/fcam/FLB_486615455EDR_F0481570FHAZ00323M_.JPG
-                          earth_date: 2015-06-03
-                          rover:
-                              id: 5
-                              name: Curiosity
-                              landing_date: 2012-08-06
-                              launch_date: 2011-11-26
-                              status: active
+              id:
+                type: integer
+                format: int32
+                example: 102685
+              sol:
+                type: integer
+                format: int32
+                example: 1004
+              camera:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int32
+                    example: 20
+                  name:
+                    type: string
+                    example: FHAZ
+                  rover_id:
+                    type: integer
+                    format: int32
+                    example: 5
+                  full_name:
+                    type: string
+                    example: Front Hazard Avoidance Camera
+              img_src:
+                type: string
+                example: http://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/01004/opgs/edr/fcam/FLB_486615455EDR_F0481570FHAZ00323M_.JPG
+              earth_date:
+                type: string
+                format: date
+                example: 2015-06-03
+              rover:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int32
+                    example: 5
+                  name:
+                    type: string
+                    example: Curiosity
+                  landing_date:
+                    type: string
+                    format: date
+                    example: 2012-08-06
+                  launch_date:
+                    type: string
+                    format: date
+                    example: 2011-11-26
+                  status:
+                    type: string
+                    example: active
+          example:
+            - id: 102685
+              sol: 1004
+              camera:
+                id: 20
+                name: FHAZ
+                rover_id: 5
+                full_name: Front Hazard Avoidance Camera
+              img_src: http://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/01004/opgs/edr/fcam/FLB_486615455EDR_F0481570FHAZ00323M_.JPG
+              earth_date: 2015-06-03
+              rover:
+                id: 5
+                name: Curiosity
+                landing_date: 2012-08-06
+                launch_date: 2011-11-26
+                status: active
