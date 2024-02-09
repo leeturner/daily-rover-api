@@ -1,7 +1,6 @@
 openapi: 3.0.1
 info:
   title: Git Open API Fun And Games
-  description: A Spring Boot Kotlin service to access the NASA mars rover image API
   version: 1.0.0
 servers:
 - url: https://dev-w1w93.wiremockapi.cloud
